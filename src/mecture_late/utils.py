@@ -31,3 +31,16 @@ def get_response(filepath):
     return response.txt
 
 
+# Input: original_file_name - .pdf, content to go in the file
+# Output: Write
+def write_string_to_md(lecture_name, content):
+    folder_path = Path("output/")
+    new_path = folder_path / (lecture_name + ".md")
+    try:
+        with open(new_path, "x") as f:
+            f.write(content)
+        print(f"Successfully created {new_path}")
+        return True
+    except FileExistsError:
+        print(f"Error: The file '{new_path}' already exists. No data was written.")
+        return False
