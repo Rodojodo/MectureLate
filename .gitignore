@@ -51,6 +51,9 @@ coverage.xml
 .pytest_cache/
 cover/
 
+rsc/input_slides/*
+
+
 # Translations
 *.mo
 *.pot
