@@ -38,7 +38,7 @@ def write_string_to_md(lecture_name, content):
     folder_path = Path("output/")
     new_path = folder_path / (lecture_name + ".md")
     try:
-        with open(new_path, "x") as f:
+        with open(new_path, "w") as f:
             f.write(content)
         print(f"Successfully created {new_path}")
         return True
