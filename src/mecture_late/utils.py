@@ -13,6 +13,7 @@ def get_pdf_paths_from_folder(folder_path):
     files = [pdf_file for pdf_file in folder_path.glob("*.pdf")]
     return files
 
+
 # Input: Lecture slide pdf file path
 # Output: Lecture notes written in markdown as a string
 def get_response(filepath):
@@ -28,7 +29,7 @@ def get_response(filepath):
             ),
             prompt])
     print(response.text)
-    return response.txt
+    return response.text
 
 
 # Input: original_file_name - .pdf, content to go in the file
@@ -44,3 +45,10 @@ def write_string_to_md(lecture_name, content):
     except FileExistsError:
         print(f"Error: The file '{new_path}' already exists. No data was written.")
         return False
+
+
+# Input: Path to lecture pdf
+# Output: Name of the lecture (e.g. iads11heaps0)
+def get_lecture_name(lecture_path):
+    lecture_name = lecture_path.stem
+    return lecture_name

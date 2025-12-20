@@ -7,6 +7,7 @@ from src.mecture_late import utils
 if __name__ == '__main__':
     unittest.main()
 
+
 class Test_get_pdf_paths_from_folder(TestCase):
     folder_path = Path("rsc/test_files/test_slides")
     names = utils.get_pdf_paths_from_folder(folder_path)
@@ -37,12 +38,10 @@ class Test_write_string_to_md(TestCase):
     def test_wrote_to_new_file(self):
         self.assertTrue(self.wrote_correctly)
 
-    def test_wrote_to_correct_file(self):
+    def test_wrote_to_correct_file_name(self):
         self.assertTrue(Path("output/test_lecture.md").exists())
 
         # Cleanup for future tests
         if self.wrote_correctly:
             os.remove(Path("output/test_lecture.md"))
-
-
 
