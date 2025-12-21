@@ -1,7 +1,17 @@
 import os
 from pathlib import Path
 
-from src.mecture_late.utils import get_pdf_paths_from_folder, get_response, write_string_to_md, get_lecture_name
+from .utils import get_pdf_paths_from_folder, get_response, write_string_to_md, get_lecture_name
+
+
+def main():
+    """CLI entry point with default paths"""
+    input_dir = Path("rsc/input_slides")
+    # Ensure output dir exists
+    Path("output").mkdir(exist_ok=True)
+
+    print(f"🚀 Starting MectureLate on folder: {input_dir}")
+    generate_notes_for_all_lectures(input_dir)
 
 
 def generate_notes_for_all_lectures(folder_path):
@@ -20,3 +30,7 @@ def generate_notes_for_all_lectures(folder_path):
         else:
             lecture_notes = get_response(lecture_path)
             write_string_to_md(lecture_name, lecture_notes)
+
+
+if __name__ == "__main__":
+    main()

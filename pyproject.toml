@@ -1,0 +1,32 @@
+ [build-system]
+
+requires = ["setuptools>=61.0"]
+
+build-backend = "setuptools.build_meta"
+
+
+[project]
+
+name = "mecture_late"
+
+version = "0.1.0"
+
+description = "AI-powered lecture note generator"
+
+dependencies = [
+
+"google-genai",
+
+"python-dotenv",
+
+"pathlib",
+
+]
+
+
+[tool.setuptools.packages.find]
+
+where = ["src"]
+
+[project.scripts]
+mecture = "mecture_late.main:main"

@@ -1,0 +1,1 @@
+from .main import generate_notes_for_all_lectures
