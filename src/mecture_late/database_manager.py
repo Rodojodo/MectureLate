@@ -9,7 +9,6 @@ class DatabaseManager:
         # Initializes the connection to Supabase.
         url = os.getenv("SUPABASE_URL")
         key = os.getenv("SUPABASE_KEY")
-        self.__supabase = create_client()
         self.__supabase: Client = create_client(url, key)
 
     def get_lecture_note(self, lecture_id):
@@ -42,7 +41,7 @@ class DatabaseManager:
         """Deletes a lecture note linked to a course."""
         try:
             self.__supabase.table("lectures") \
-                .update({"context": content}) \
+                .update({"content": content}) \
                 .eq("id", lecture_id) \
                 .execute()
             return True
@@ -53,21 +52,23 @@ class DatabaseManager:
 
     def check_lecture_exists(self, course_code, lecture_name):
         try:
+            # FIX: Use limit(1) instead of maybe_single().
+            # It returns a list, which is safer to check than a nullable object.
             response = self.__supabase.table("lectures") \
                 .select("id") \
                 .eq("course_code", course_code) \
-                .eq("lecture_name", lecture_name) \
-                .maybe_single() \
+                .eq("name", lecture_name) \
+                .limit(1) \
                 .execute()
 
-            # .maybe_single() returns None if not found, or the dict if found
-            if response.data:
-                return response.data['id']
+            # Check if the list contains any data
+            if response.data and len(response.data) > 0:
+                return response.data[0]['id']
             return None
 
         except Exception as e:
             print(f"Error checking existence: {e}")
-            return 0
+            return None
 
 
     def create_course(self, course_code, course_name):

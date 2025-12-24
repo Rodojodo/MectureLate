@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from .database_manager import DatabaseManager
 from .utils import get_pdf_paths_from_folder, get_response, write_string_to_md, get_lecture_name, get_lecture_number
+import streamlit as st
 
 
 def main():
@@ -10,17 +11,19 @@ def main():
     # Ensure output dir exists
     Path("output").mkdir(exist_ok=True)
 
-    print(f"🚀 Starting MectureLate on folder: {input_dir}")
+    st.status(f"🚀 Starting MectureLate on folder: {input_dir}")
     generate_notes_for_all_lectures(input_dir)
 
 
 def generate_notes_for_all_lectures(folder_path):
     lecture_paths = get_pdf_paths_from_folder(folder_path)
     course_code = input("Please enter the course code: ")
+    course_name = input("Please enter the course name: ")
     db_manager = DatabaseManager()
+    db_manager.create_course(course_code, )
     for lecture_path in lecture_paths:
         lecture_name = get_lecture_name(lecture_path)
-        lecture_number = get_lecture_number
+        lecture_number = get_lecture_number(lecture_name)
         output_path = Path("output/" + lecture_name + ".md")
 
         # Check if lecture already exists in database, if so, get lecture_id

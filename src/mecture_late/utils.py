@@ -22,10 +22,10 @@ def get_response(filepath):
 
     prompt = "Generate notes in enough detail for exam revision for university students. They should be in markdown format."
     response = client.models.generate_content(
-        model="gemini-3-flash-preview",
+        model="gemini-2.5-flash",
         contents=[
             types.Part.from_bytes(
-                data=filepath.read_bytes(),
+                data=Path(filepath).read_bytes(),
                 mime_type='application/pdf',
             ),
             prompt])
@@ -51,7 +51,7 @@ def write_string_to_md(lecture_name, content):
 # Input: Path to lecture pdf
 # Output: Name of the lecture (e.g. iads11heaps0)
 def get_lecture_name(lecture_path):
-    lecture_name = lecture_path.stem
+    lecture_name = Path(lecture_path).stem
     return lecture_name
 
 
