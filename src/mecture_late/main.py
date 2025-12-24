@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-
-from .utils import get_pdf_paths_from_folder, get_response, write_string_to_md, get_lecture_name
+from .database_manager import DatabaseManager
+from .utils import get_pdf_paths_from_folder, get_response, write_string_to_md, get_lecture_name, get_lecture_number
 
 
 def main():
@@ -16,10 +16,16 @@ def main():
 
 def generate_notes_for_all_lectures(folder_path):
     lecture_paths = get_pdf_paths_from_folder(folder_path)
+    course_code = input("Please enter the course code: ")
+    db_manager = DatabaseManager()
     for lecture_path in lecture_paths:
         lecture_name = get_lecture_name(lecture_path)
+        lecture_number = get_lecture_number
         output_path = Path("output/" + lecture_name + ".md")
-        if output_path.exists():
+
+        # Check if lecture already exists in database, if so, get lecture_id
+        lecture_id = db_manager.check_lecture_exists(course_code, lecture_name)
+        if output_path.exists() or (lecture_id is not None):
             preference = input(
             f"""
             {lecture_name} " already has lecture notes. Would you like to skip it? (Y/n)""")
@@ -27,9 +33,13 @@ def generate_notes_for_all_lectures(folder_path):
                 lecture_notes = get_response(lecture_path)
                 os.remove(output_path)
                 write_string_to_md(lecture_name, lecture_notes)
+                db_manager.update_lecture_note(lecture_id, lecture_notes)
         else:
             lecture_notes = get_response(lecture_path)
             write_string_to_md(lecture_name, lecture_notes)
+            db_manager.create_lecture_note(course_code, lecture_name, lecture_number, lecture_notes)
+
+
 
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ from google import genai
 from google.genai import types
 import os
 from dotenv import load_dotenv
+import re
 load_dotenv()
 gemini_key = os.getenv("GEMINI_KEY")
 
@@ -53,5 +54,18 @@ def get_lecture_name(lecture_path):
     lecture_name = lecture_path.stem
     return lecture_name
 
+
+def get_lecture_number(lecture_name):
+    # 1. Find all sequences of digits in the string
+    numbers = re.findall(r'\d+', lecture_name)
+
+    # 2. Check each number found
+    for num_str in numbers:
+        value = int(num_str)
+        # 3. Apply your "cap" logic
+        if value <= 50:
+            return value
+
+    return None  # Return None if no valid number is found
 
 
