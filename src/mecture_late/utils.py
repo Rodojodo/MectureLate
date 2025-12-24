@@ -52,3 +52,6 @@ def write_string_to_md(lecture_name, content):
 def get_lecture_name(lecture_path):
     lecture_name = lecture_path.stem
     return lecture_name
+
+
+
