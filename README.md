@@ -1,6 +1,9 @@
 MectureLate 🎓
 
 MectureLate is an AI-powered utility that transforms lecture slide PDFs into clean, structured Markdown study notes using the Google Gemini API. It includes both a command-line interface and a web interface for managing and viewing your lecture notes.
+
+📚 **[Web Interface Documentation →](WEB_INTERFACE.md)**
+
 🚀 Getting Started
 1. Prerequisites
 
