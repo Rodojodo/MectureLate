@@ -2,8 +2,8 @@ import streamlit as st
 import os
 import shutil
 from pathlib import Path
-from database_manager import DatabaseManager
-from utils import get_response, get_lecture_name, get_lecture_number, write_string_to_md
+from mecture_late.database_manager import DatabaseManager
+from mecture_late.utils import get_response, get_lecture_name, get_lecture_number, write_string_to_md
 
 
 def save_uploaded_file(uploaded_file, save_dir):

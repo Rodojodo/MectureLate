@@ -1,7 +1,7 @@
 import streamlit as st
-from database_manager import DatabaseManager
-# from mecture_late.admin_interface import run_admin_interface
-#
+from mecture_late.database_manager import DatabaseManager
+from mecture_late.admin_interface import run_admin_interface
+
 # --- 1. SETUP & CACHING ---
 st.set_page_config(page_title="Lecture Notes", layout="wide")
 
@@ -14,60 +14,6 @@ def get_manager():
 
 
 db = get_manager()
-#
-# # --- 2. SIDEBAR (Navigation) ---
-# st.sidebar.title("Navigation")
-# # Let users filter by course immediately
-# courses = db.list_all_entries("courses")
-# course_options = {c['course_code']: c['course_name'] for c in courses}
-#
-# selected_course_code = st.sidebar.selectbox(
-#     "Select Course",
-#     options=list(course_options.keys()),
-#     format_func=lambda x: f"{x} - {course_options[x]}"
-# )
-#
-# # --- 3. MAIN UI ---
-# tab1, tab2, tab3 = st.tabs(["Read Notes", "Manual Entry", "PDF Uploader"])
-#
-# # === TAB 1: READ NOTES ===
-# with tab1:
-#
-#
-# # === TAB 2: CREATE NOTE ===
-# with tab2:
-#     st.header("Add New Lecture Note")
-#
-#     with st.form("new_note_form"):
-#         c_code = st.selectbox("Course", options=list(course_options.keys()))
-#         l_num = st.number_input("Lecture Number", min_value=1, step=1)
-#         l_name = st.text_input("Lecture Topic/Name")
-#         l_content = st.text_area("Content (Markdown supported)", height=200)
-#
-#         submitted = st.form_submit_button("Create Note")
-#
-#         if submitted:
-#             # Check if exists
-#             if db.check_lecture_exists(c_code, l_name):
-#                 st.error("A lecture with this name already exists for this course.")
-#             else:
-#                 success = db.create_lecture_note(c_code, l_name, l_num, l_content)
-#                 if success:
-#                     st.success("Note created successfully!")
-#                 else:
-#                     st.error("Failed to create note.")
-#
-# # === TAB 3: UPLOAD NOTES FOR PROCESSING ===
-# with tab3:
-#     run_admin_interface()
-
-
-
-import streamlit as st
-from admin_interface import run_admin_interface
-# ... import other pages ...
-
-st.set_page_config(layout="wide")
 
 # Sidebar Navigation
 page = st.sidebar.radio("Go to", ["Read Notes", "Admin Upload"])
