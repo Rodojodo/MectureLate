@@ -8,9 +8,9 @@ from pathlib import Path
 
 # Create a demo .env file
 env_content = """# Demo environment variables for testing
-GEMINI_API_KEY=demo_key_for_testing
-SUPABASE_URL=https://demo.supabase.co
-SUPABASE_KEY=demo_anon_key_for_testing
+GEMINI_API_KEY=your_gemini_api_key_here
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_KEY=your_supabase_anon_key_here
 """
 
 env_path = Path(__file__).parent.parent.parent / ".env"
