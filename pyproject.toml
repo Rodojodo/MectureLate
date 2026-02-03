@@ -21,6 +21,10 @@ dependencies = [
 
 "pathlib",
 
+"streamlit",
+
+"supabase",
+
 ]
 
 
@@ -30,3 +34,4 @@ where = ["src"]
 
 [project.scripts]
 mecture = "mecture_late.main:main"
+mecture-web = "mecture_late.run_web:main"
